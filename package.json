@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "perf": "node ./test/performance/perf.js",
     "test": "mocha"
   },
   "author": "",
