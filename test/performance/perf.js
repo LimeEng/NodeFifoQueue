@@ -37,7 +37,7 @@ function runSuite(info, suiteFactory) {
       console.log(String(e.target))
     })
     .on('complete', function () {
-      for (var i = 0; i < this.length; i++) {
+      for (let i = 0; i < this.length; i++) {
         obj.results.push(this[i])
       }
     })
