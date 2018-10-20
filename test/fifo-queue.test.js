@@ -180,6 +180,27 @@ describe('Fifo Queue', function () {
       assert.deepStrictEqual(queue.poll(), undefined)
     })
   })
+
+  describe('.isEmpty', function () {
+    it('should return true on newly instantiated queue', function () {
+      const queue = new Queue()
+      assert.deepStrictEqual(queue.isEmpty, true)
+      assert.deepStrictEqual(queue.size, 0)
+      assert.deepStrictEqual(queue.peek(), undefined)
+      assert.deepStrictEqual(queue.poll(), undefined)
+    })
+
+    it('should return false on non-empty queue', function () {
+      const queue = new Queue()
+      queue.offer(1)
+      assert.deepStrictEqual(queue.isEmpty, false)
+      assert.deepStrictEqual(queue.size, 1)
+      assert.deepStrictEqual(queue.peek(), 1)
+      assert.deepStrictEqual(queue.poll(), 1)
+      assert.deepStrictEqual(queue.isEmpty, true)
+      assert.deepStrictEqual(queue.size, 0)
+    })
+  })
 })
 
 function shouldThrow(func) {
