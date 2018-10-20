@@ -21,6 +21,7 @@ describe('Fifo Queue', function () {
         queue.offer(i)
         assert.deepStrictEqual(queue.size, i)
         assert.deepStrictEqual(queue.isEmpty, false)
+        assert.deepStrictEqual(queue.peek(), 1)
       }
     })
 
@@ -44,16 +45,17 @@ describe('Fifo Queue', function () {
     it('should update size and isEmpty', function () {
       const queue = new Queue()
       for (let i = 1; i < 10; i++) {
-        queue.offer(i)
+        queue.push(i)
         assert.deepStrictEqual(queue.size, i)
         assert.deepStrictEqual(queue.isEmpty, false)
+        assert.deepStrictEqual(queue.peek(), 1)
       }
     })
 
     it('should not break down arrays', function () {
       const queue = new Queue()
       const data = [1, 2, 3, 4, 5]
-      queue.offer(data)
+      queue.push(data)
       assert.deepStrictEqual(queue.size, 1)
       assert.deepStrictEqual(queue.isEmpty, false)
       assert.deepStrictEqual(queue.peek(), data)
@@ -61,7 +63,7 @@ describe('Fifo Queue', function () {
 
     it('should throw an error if offered undefined', function () {
       const queue = new Queue()
-      const errorThrown = shouldThrow(() => queue.offer(undefined))
+      const errorThrown = shouldThrow(() => queue.push(undefined))
       assert.deepStrictEqual(errorThrown, true)
     })
   })
@@ -112,7 +114,7 @@ describe('Fifo Queue', function () {
       queue.offer(3)
       assert.deepStrictEqual(queue.size, 3)
       assert.deepStrictEqual(queue.isEmpty, false)
-      assert.deepStrictEqual(queue.poll(), 1)
+      assert.deepStrictEqual(queue.shift(), 1)
       assert.deepStrictEqual(queue.size, 2)
       assert.deepStrictEqual(queue.isEmpty, false)
     })
@@ -126,7 +128,7 @@ describe('Fifo Queue', function () {
         assert.deepStrictEqual(queue.poll(), i)
       }
       assert.deepStrictEqual(queue.peek(), undefined)
-      assert.deepStrictEqual(queue.poll(), undefined)
+      assert.deepStrictEqual(queue.shift(), undefined)
       assert.deepStrictEqual(queue.size, 0)
       assert.deepStrictEqual(queue.isEmpty, true)
     })
