@@ -104,7 +104,7 @@ describe('Fifo Queue', function () {
   describe('.shift()', function () {
     it('should return undefined if called on an empty queue', function () {
       const queue = new Queue()
-      assert.deepStrictEqual(queue.poll(), undefined)
+      assert.deepStrictEqual(queue.shift(), undefined)
     })
 
     it('should return the right element and remove it', function () {
@@ -125,7 +125,7 @@ describe('Fifo Queue', function () {
         queue.offer(i)
       }
       for (let i = 0; i < 10; i++) {
-        assert.deepStrictEqual(queue.poll(), i)
+        assert.deepStrictEqual(queue.shift(), i)
       }
       assert.deepStrictEqual(queue.peek(), undefined)
       assert.deepStrictEqual(queue.shift(), undefined)
