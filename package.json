@@ -1,14 +1,16 @@
 {
-  "name": "fifo-queue",
-  "version": "0.1.0",
+  "name": "@limeeng/fifo-queue",
+  "version": "0.1.1",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "perf": "node ./test/performance/perf.js",
     "test": "mocha"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "benchmark": "^2.1.4",
     "mocha": "^5.2.0"
   }
 }
