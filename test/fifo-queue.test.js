@@ -201,6 +201,29 @@ describe('Fifo Queue', function () {
       assert.deepStrictEqual(queue.size, 0)
     })
   })
+
+  describe('stress testing', function () {
+    it('should be able to handle large amounts of elements', function () {
+      const queue = new Queue()
+      for (let i = 1; i < 100000; i++) {
+        queue.offer(i)
+        assert.deepStrictEqual(queue.size, i)
+        assert.deepStrictEqual(queue.isEmpty, false)
+        assert.deepStrictEqual(queue.peek(), 1)
+      }
+      for (let i = 1; i < 100000; i++) {
+        assert.deepStrictEqual(queue.poll(), i)
+        assert.deepStrictEqual(queue.size, 100000 - 1 - i)
+        assert.deepStrictEqual(queue.isEmpty, i === 100000 - 1 ? true : false)
+      }
+      assert.deepStrictEqual(queue.size, 0)
+      assert.deepStrictEqual(queue.isEmpty, true)
+      assert.deepStrictEqual(queue.peek(), undefined)
+      assert.deepStrictEqual(queue.poll(), undefined)
+      assert.deepStrictEqual(queue.size, 0)
+      assert.deepStrictEqual(queue.isEmpty, true)
+    })
+  })
 })
 
 function shouldThrow(func) {
