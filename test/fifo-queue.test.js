@@ -203,19 +203,56 @@ describe('Fifo Queue', function () {
   })
 
   describe('stress testing', function () {
-    it('should be able to handle large amounts of elements', function () {
+    it('should be able to handle a large amount of elements', function () {
+      // TODO: What a mess
       const queue = new Queue()
-      for (let i = 1; i < 100000; i++) {
+      let externalSizeCounter = 0
+      let latestPolled = 0
+      for (let i = 0; i < 100000; i++) {
         queue.offer(i)
-        assert.deepStrictEqual(queue.size, i)
-        assert.deepStrictEqual(queue.isEmpty, false)
-        assert.deepStrictEqual(queue.peek(), 1)
+        externalSizeCounter += 1
+        assert.deepStrictEqual(queue.size, externalSizeCounter)
+        assert.deepStrictEqual(queue.isEmpty, externalSizeCounter === 0)
+        assert.deepStrictEqual(queue.peek(), 0)
       }
-      for (let i = 1; i < 100000; i++) {
-        assert.deepStrictEqual(queue.poll(), i)
-        assert.deepStrictEqual(queue.size, 100000 - 1 - i)
-        assert.deepStrictEqual(queue.isEmpty, i === 100000 - 1 ? true : false)
+      for (let i = 0; i < 100000 / 2; i++) {
+        latestPolled = queue.poll()
+        externalSizeCounter -= 1
+        assert.deepStrictEqual(latestPolled, i)
+        assert.deepStrictEqual(queue.size, externalSizeCounter)
+        assert.deepStrictEqual(queue.isEmpty, externalSizeCounter === 0)
       }
+      for (let i = 0; i < 100000; i++) {
+        queue.offer(i)
+        externalSizeCounter += 1
+        assert.deepStrictEqual(queue.size, externalSizeCounter)
+        assert.deepStrictEqual(queue.isEmpty, externalSizeCounter === 0)
+        assert.deepStrictEqual(queue.peek(), latestPolled + 1)
+      }
+      for (let i = 0; i < 100000 / 2; i++) {
+        latestPolled = queue.poll()
+        externalSizeCounter -= 1
+        assert.deepStrictEqual(latestPolled, (100000 / 2) + i)
+        assert.deepStrictEqual(queue.size, externalSizeCounter)
+        assert.deepStrictEqual(queue.isEmpty, externalSizeCounter === 0)
+      }
+      for (let i = 0; i < 100000; i++) {
+        latestPolled = queue.poll()
+        externalSizeCounter -= 1
+        assert.deepStrictEqual(latestPolled, i)
+        assert.deepStrictEqual(queue.size, externalSizeCounter)
+        assert.deepStrictEqual(queue.isEmpty, externalSizeCounter === 0)
+      }
+      assert.deepStrictEqual(queue.size, externalSizeCounter)
+      assert.deepStrictEqual(queue.isEmpty, externalSizeCounter === 0)
+      for (let i = 0; i < 100000; i++) {
+        queue.offer(i)
+        externalSizeCounter += 1
+        assert.deepStrictEqual(queue.size, externalSizeCounter)
+        assert.deepStrictEqual(queue.isEmpty, externalSizeCounter === 0)
+        assert.deepStrictEqual(queue.peek(), 0)
+      }
+      queue.clear()
       assert.deepStrictEqual(queue.size, 0)
       assert.deepStrictEqual(queue.isEmpty, true)
       assert.deepStrictEqual(queue.peek(), undefined)
