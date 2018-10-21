@@ -1,6 +1,7 @@
 'use strict'
 
-const Table = require('cli-table3');
+const Table = require('cli-table3')
+const colorize = require('colors/safe')
 
 function printBenchmarks(benchmarks) {
   const longestTitle = Math.max(...(benchmarks
@@ -13,17 +14,25 @@ function printAsTable(benchmark, longestTitle) {
 
   var table = new Table({ style: { head: [], border: [] } })
 
+  const fastestHz = Math.max(...(benchmark.results
+    .map(item => item.hz)))
+
   const arrays = benchmark.results.map(item => {
+    let percentage = 'fastest'
+    if (item.hz !== fastestHz) {
+      percentage = '-' + ((1 - item.hz / fastestHz) * 100).toFixed(2) + '%'
+    }
     return [
       item.name,
       formatNumber(item.hz.toFixed(item.hz < 100 ? 2 : 0)) + ' \xb1 ' + item.stats.rme.toFixed(2) + '%',
-      item.stats.sample.length
+      item.stats.sample.length,
+      percentage
     ]
   })
 
   table.push(
-    [{ hAlign:'center', colSpan: 3, content: padTitle(benchmark.title, longestTitle) }],
-    ['name', 'ops/sec', 'runs sampled'],
+    [{ hAlign: 'center', colSpan: 4, content: colorize.green(padTitle(benchmark.title, longestTitle)) }],
+    ['name', 'ops/sec', 'runs sampled', 'performance'].map(item => colorize.green(item))
   )
   arrays.forEach(row => table.push(row))
   console.log(table.toString())
