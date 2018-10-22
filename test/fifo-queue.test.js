@@ -209,6 +209,8 @@ describe('Fifo Queue', function () {
       // NOTE! This is purely for testing.
       // The internal attributes should never be touched or relied upon.
       let lastArraySize = queue._contents.length
+      // Oh my god
+      const minimumInternalSize = 16
       for (let i = 0; i < 1000000; i++) {
         queue.offer(i)
         externalSizeCounter += 1
@@ -217,7 +219,6 @@ describe('Fifo Queue', function () {
         assert.deepStrictEqual(queue.peek(), 0)
         if (i >= lastArraySize) {
           const currentSize = queue._contents.length
-          assert.deepStrictEqual(queue.isEmpty, externalSizeCounter === 0)
           assert.notDeepStrictEqual(lastArraySize, currentSize)
           lastArraySize = currentSize
         }
@@ -227,9 +228,12 @@ describe('Fifo Queue', function () {
         externalSizeCounter -= 1
         assert.deepStrictEqual(queue.size, externalSizeCounter)
         assert.deepStrictEqual(queue.isEmpty, externalSizeCounter === 0)
-        // TODO: Add some sorts of tests to test that the size is changing here too. But when?
+        if (lastArraySize !== minimumInternalSize && externalSizeCounter === lastArraySize / 4) {
+          const currentSize = queue._contents.length
+          assert.notDeepStrictEqual(lastArraySize, currentSize)
+          lastArraySize = currentSize
+        }
       }
-      assert.notDeepStrictEqual(lastArraySize, queue._contents.length)
       assert.deepStrictEqual(queue.size, 0)
       assert.deepStrictEqual(queue.isEmpty, true)
       assert.deepStrictEqual(queue.peek(), undefined)
