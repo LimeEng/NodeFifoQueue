@@ -203,6 +203,41 @@ describe('Fifo Queue', function () {
   })
 
   describe('stress testing', function () {
+    it('should resize the internal array when needed', function () {
+      const queue = new Queue()
+      let externalSizeCounter = 0
+      // NOTE! This is purely for testing.
+      // The internal attributes should never be touched or relied upon.
+      let lastArraySize = queue._contents.length
+      for (let i = 0; i < 1000000; i++) {
+        queue.offer(i)
+        externalSizeCounter += 1
+        assert.deepStrictEqual(queue.size, externalSizeCounter)
+        assert.deepStrictEqual(queue.isEmpty, externalSizeCounter === 0)
+        assert.deepStrictEqual(queue.peek(), 0)
+        if (i >= lastArraySize) {
+          const currentSize = queue._contents.length
+          assert.deepStrictEqual(queue.isEmpty, externalSizeCounter === 0)
+          assert.notDeepStrictEqual(lastArraySize, currentSize)
+          lastArraySize = currentSize
+        }
+      }
+      for (let i = 0; i < 1000000; i++) {
+        assert.deepStrictEqual(queue.poll(), i)
+        externalSizeCounter -= 1
+        assert.deepStrictEqual(queue.size, externalSizeCounter)
+        assert.deepStrictEqual(queue.isEmpty, externalSizeCounter === 0)
+        // TODO: Add some sorts of tests to test that the size is changing here too. But when?
+      }
+      assert.notDeepStrictEqual(lastArraySize, queue._contents.length)
+      assert.deepStrictEqual(queue.size, 0)
+      assert.deepStrictEqual(queue.isEmpty, true)
+      assert.deepStrictEqual(queue.peek(), undefined)
+      assert.deepStrictEqual(queue.poll(), undefined)
+      assert.deepStrictEqual(queue.size, 0)
+      assert.deepStrictEqual(queue.isEmpty, true)
+    })
+
     it('should be able to handle a large amount of elements', function () {
       // TODO: What a mess
       const queue = new Queue()
