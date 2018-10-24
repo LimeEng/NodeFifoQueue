@@ -79,20 +79,6 @@ console.log(queue.peek())
 console.log(queue.peek()) // Prints "1" both times
 ```
 
-#### `isEmpty` -> `boolean`
-
-Is `true` if the queue is empty, `false` otherwise.
-
-Complexity: Constant time.
-
-```js
-const FifoQueue = require('@limeeng/fifo-queue')
-const queue = new FifoQueue()
-console.log(queue.isEmpty) // Prints "true"
-queue.offer(1)
-console.log(queue.isEmpty) // Prints "false"
-```
-
 #### `size` -> `int`
 
 Returns the number of items stored in this queue.
@@ -105,6 +91,20 @@ const queue = new FifoQueue()
 queue.offer(1)
 queue.offer(2)
 console.log(queue.size) // Prints "2"
+```
+
+#### `isEmpty` -> `boolean`
+
+Is `true` if the queue is empty, `false` otherwise.
+
+Complexity: Constant time.
+
+```js
+const FifoQueue = require('@limeeng/fifo-queue')
+const queue = new FifoQueue()
+console.log(queue.isEmpty) // Prints "true"
+queue.offer(1)
+console.log(queue.isEmpty) // Prints "false"
 ```
 
 #### `clear()` -> `void`
