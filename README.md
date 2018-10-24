@@ -9,8 +9,9 @@ This is a simple and straightforward implementation of a FIFO queue using a circ
     - [API](#api)
     - [Benchmarks](#benchmarks)
 
- # Sample Code
- ## API
+# Sample Code
+ 
+## API
 
 - [`new FifoQueue()`](#new-fifoqueue---fifoqueue)
 - [`offer(item)`](#offeritem---void)
@@ -22,10 +23,10 @@ This is a simple and straightforward implementation of a FIFO queue using a circ
 - [`isEmpty`](#isempty---boolean)
 - [`clear()`](#clear---void)
 
- ### `new FifoQueue()` -> `FifoQueue`
- 
- Creates a new FIFO queue.
- 
+### `new FifoQueue()` -> `FifoQueue`
+
+Creates a new FIFO queue.
+
  ```js
 const FifoQueue = require('@limeeng/fifo-queue')
 const queue = new FifoQueue()
@@ -67,7 +68,7 @@ Alias for poll().
 
 #### `peek()` -> `any`
 
-Retrieves the head of the queue, or `undefined` if the queue is empty. 
+Retrieves the head of the queue, or `undefined` if the queue is empty.
 Does *not* remove the element from the queue.
 
 Complexity: Constant time.
@@ -122,7 +123,8 @@ queue.clear()
 console.log(queue.peek()) // Prints "undefined"
 ```
 
- ## Benchmarks
+## Benchmarks
+
 ``` 
 Platform info:
 
