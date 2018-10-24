@@ -1,13 +1,23 @@
 {
   "name": "@limeeng/fifo-queue",
-  "version": "0.2.0",
-  "description": "",
+  "version": "0.3.0",
+  "description": "A fast FIFO queue implementation.",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LimeEng/NodeFifoQueue.git"
+  },
+  "keywords": [
+    "fast",
+    "fifo",
+    "queue",
+    "data structure"
+  ],
   "scripts": {
     "perf": "node ./test/performance/perf.js",
     "test": "mocha"
   },
-  "author": "",
+  "author": "Emil Englesson",
   "license": "MIT",
   "devDependencies": {
     "benchmark": "^2.1.4",
