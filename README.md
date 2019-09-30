@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/LimeEng/NodeFifoQueue.svg?branch=master)](https://travis-ci.com/LimeEng/NodeFifoQueue)
+![](https://github.com/LimeEng/NodeFifoQueue/workflows/Node%20CI/badge.svg)
 [![npm (scoped)](https://img.shields.io/npm/v/@limeeng/fifo-queue.svg)](https://www.npmjs.com/package/@limeeng/fifo-queue)
 
 # FIFO queue
