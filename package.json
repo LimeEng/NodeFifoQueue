@@ -1,6 +1,6 @@
 {
   "name": "@limeeng/fifo-queue",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "A fast FIFO queue implementation.",
   "main": "index.js",
   "repository": {
@@ -21,8 +21,8 @@
   "license": "MIT",
   "devDependencies": {
     "benchmark": "^2.1.4",
-    "cli-table3": "^0.5.1",
-    "colors": "^1.3.2",
-    "mocha": "^5.2.0"
+    "cli-table3": "^0.6.0",
+    "colors": "^1.4.0",
+    "mocha": "^8.4.0"
   }
 }
