@@ -1,9 +1,9 @@
-![](https://github.com/LimeEng/NodeFifoQueue/workflows/Node%20CI/badge.svg)
+![](https://github.com/LimeEng/NodeFifoQueue/actions/workflows/ci.yaml/badge.svg)
 [![npm (scoped)](https://img.shields.io/npm/v/@limeeng/fifo-queue.svg)](https://www.npmjs.com/package/@limeeng/fifo-queue)
 
 # FIFO queue
 
-This is a simple and straightforward implementation of a FIFO queue using a circular buffer. This means that all operations operate in *amortized* constant time, since some operations such as offer/poll might need to resize the internal array.
+This package provides a simple and efficient FIFO queue implemented using a circular buffer. Most operations run in O(1), while some require *amortized* O(1) due to occasional resizing of the internal array.
 
  - [Sample Code](#sample-code)
     - [API](#api)
@@ -36,7 +36,7 @@ const queue = new FifoQueue()
 
 Offer an item to the queue. Will throw an error if offered with undefined.
 
-Complexity: *Amortized* constant time.
+Complexity: `O(1) (amortized)`
 
 ```js
 const FifoQueue = require('@limeeng/fifo-queue')
@@ -53,7 +53,7 @@ Alias for offer(item).
 
 Retrieves and removes the head of the queue, or returns `undefined` if the queue is empty.
 
-Complexity: *Amortized* constant time.
+Complexity: `O(1) (amortized)`
 
 ```js
 const FifoQueue = require('@limeeng/fifo-queue')
@@ -71,7 +71,7 @@ Alias for poll().
 Retrieves the head of the queue, or `undefined` if the queue is empty.
 Does *not* remove the element from the queue.
 
-Complexity: Constant time.
+Complexity: `O(1)`
 
 ```js
 const FifoQueue = require('@limeeng/fifo-queue')
@@ -85,7 +85,7 @@ console.log(queue.peek()) // Prints "1" both times
 
 Returns the number of items stored in this queue.
 
-Complexity: Constant time.
+Complexity: `O(1)`
 
 ```js
 const FifoQueue = require('@limeeng/fifo-queue')
@@ -99,7 +99,7 @@ console.log(queue.size) // Prints "2"
 
 Is `true` if the queue is empty, `false` otherwise.
 
-Complexity: Constant time.
+Complexity: `O(1)`
 
 ```js
 const FifoQueue = require('@limeeng/fifo-queue')
@@ -113,7 +113,7 @@ console.log(queue.isEmpty) // Prints "false"
 
 Removes all items from the queue.
 
-Complexity: Constant time.
+Complexity: `O(1)`
 
 ```js
 const FifoQueue = require('@limeeng/fifo-queue')
